@@ -8,13 +8,12 @@
 [![Platform](https://img.shields.io/badge/Platform-Android%208.0%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
 [![Language](https://img.shields.io/badge/Language-Java%2017-ED8B00?logo=openjdk&logoColor=white)](https://www.java.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-007AFF)](https://github.com)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-007AFF)](https://github.com/Pennsy007/Apple-Floating-Clock/releases/tag/v1.0.0)
 
 <p align="center">
-  <img src="docs/images/preview_desktop.png" alt="桌面悬浮效果" width="320" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2);" />
+  <img src="https://fastly.jsdelivr.net/gh/Pennsy007/Apple-Floating-Clock@main/docs/images/preview_desktop.png" alt="桌面悬浮效果" width="320" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2);" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/preview_settings.png" alt="控制中心设置" width="320" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2);" />
+  <img src="https://fastly.jsdelivr.net/gh/Pennsy007/Apple-Floating-Clock@main/docs/images/preview_settings.png" alt="控制中心设置" width="320" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2);" />
 </p>
 
 </div>
@@ -86,7 +85,7 @@
 ### 构建步骤：
 ```bash
 # 1. 克隆代码仓库
-git clone https://github.com/your-username/Apple-Floating-Clock.git
+git clone https://github.com/Pennsy007/Apple-Floating-Clock.git
 cd Apple-Floating-Clock
 
 # 2. 编译 Debug 版本
@@ -109,9 +108,11 @@ cd Apple-Floating-Clock
 
 <div align="center">
 
-<img src="docs/images/sponsor.jpg" alt="微信赞赏码" width="300" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);" />
+<img src="https://fastly.jsdelivr.net/gh/Pennsy007/Apple-Floating-Clock@main/docs/images/sponsor.jpg" alt="微信赞赏码" width="280" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);" />
 
-**七月初八(**喜)** · 微信扫码赞赏支持
+<br/>
+
+**七月初八 (喜)** · 微信扫码赞赏支持
 
 *（感谢所有给予支持与建议的朋友们，祝大家生活愉快，心想事成！）*
 
@@ -122,7 +123,7 @@ cd Apple-Floating-Clock
 ## 🤝 贡献与反馈 (Contributing)
 
 欢迎提交 Issue 和 Pull Request！  
-- 如果发现任何机型适配问题或 Bug，请提交 [Issue](https://github.com)；
+- 如果发现任何机型适配问题或 Bug，请提交 [Issue](https://github.com/Pennsy007/Apple-Floating-Clock/issues)；
 - 如果你有更好的视觉设计点子或功能建议，非常欢迎提交 PR 共同完善！
 
 ---
