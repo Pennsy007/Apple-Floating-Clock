@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/apple_bg_dark">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="18dp"
+            android:paddingTop="22dp">
+
+            <!-- iOS 18 顶栏 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textColor="@color/apple_white"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.02" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="高精原子授时 · 苹果毛玻璃灵动岛"
+                        android:textColor="@color/apple_text_secondary"
+                        android:textSize="12sp"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 权限提示卡片 (未授权时显示) -->
+            <LinearLayout
+                android:id="@+id/cardPermission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_ios_card"
+                android:padding="16dp"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_title"
+                    android:textColor="@color/apple_orange"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_desc"
+                    android:textColor="@color/apple_text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnGrantPermission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:text="@string/permission_btn"
+                    android:textColor="@color/apple_white"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_ios_blue_button"
+                    app:backgroundTint="@null"
+                    android:layout_marginTop="10dp"
+                    android:paddingHorizontal="16dp" />
+            </LinearLayout>
+
+            <!-- 灵动岛毛玻璃实时预览台 -->
+            <FrameLayout
+                android:id="@+id/previewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_island_stage"
+                android:layout_marginBottom="6dp">
+
+                <include
+                    android:id="@+id/previewClock"
+                    layout="@layout/view_floating_clock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提示：悬浮窗可在任意界面双指捏合无级缩放、双击切换毫秒"
+                android:textColor="@color/apple_text_tertiary"
+                android:textSize="11sp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="14dp" />
+
+            <!-- 卡片一：标准北京时间高精授时 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标准授时"
+                android:textColor="@color/apple_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.08"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_ios_card"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="北京时间原子钟对齐"
+                            android:textColor="@color/apple_white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCalibrationStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="已校准 · 误差 ±2ms (原子钟同步)"
+                            android:textColor="@color/ios_system_green"
+                            android:textSize="12sp"
+                            android:layout_marginTop="3dp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnSyncNetworkTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="一键校准"
+                        android:textColor="@color/apple_white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_ios_blue_button"
+                        app:backgroundTint="@null"
+                        android:paddingHorizontal="14dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 卡片二：核心功能 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时钟设置"
+                android:textColor="@color/apple_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.08"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_ios_card"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="24dp">
+
+                <!-- 精确到毫秒 Switch -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="14dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="精确到毫秒"
+                            android:textColor="@color/apple_white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="显示 .SSS 毫秒，采用 120Hz 垂直同步流转"
+                            android:textColor="@color/apple_text_secondary"
+                            android:textSize="12sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchMilliseconds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:track="@drawable/bg_ios_switch_track"
+                        app:thumbTint="@null"
+                        app:trackTint="@null" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="@color/ios_separator" />
+
+                <!-- 安卓灵动岛模式 Switch -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="14dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="顶部迷你贴边模式"
+                            android:textColor="@color/apple_white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="收缩为顶部角落极简小胶囊，释放视野空间"
+                            android:textColor="@color/apple_text_secondary"
+                            android:textSize="12sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchIslandMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:track="@drawable/bg_ios_switch_track"
+                        app:thumbTint="@null"
+                        app:trackTint="@null" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="@color/ios_separator" />
+
+                <!-- 尺寸缩放调节 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="时钟缩放比例"
+                            android:textColor="@color/apple_white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvScaleValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1.00x"
+                            android:textColor="@color/ios_system_green"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:typeface="monospace" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/seekBarScale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="150"
+                        android:progress="50"
+                        android:progressDrawable="@drawable/bg_ios_seekbar_progress"
+                        android:thumb="@drawable/bg_ios_seekbar_thumb"
+                        android:splitTrack="false"
+                        android:paddingVertical="12dp"
+                        android:layout_marginTop="6dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 卡片三：毛玻璃色系选择 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="毛玻璃色系"
+                android:textColor="@color/apple_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.08"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_ios_card"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/tvSelectedThemeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前材质：冰霜极光白 (iOS Light 解决偏暗)"
+                    android:textColor="@color/ios_system_blue"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- 横向 5 个色系胶囊按键 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <!-- 0: 冰霜极光白 -->
+                    <LinearLayout
+                        android:id="@+id/btnThemeWhite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:paddingVertical="6dp">
+
+                        <View
+                            android:id="@+id/indicatorThemeWhite"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_theme_white_circle" />
+
+                        <TextView
+                            android:id="@+id/labelThemeWhite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="晨露白"
+                            android:textColor="@color/apple_white"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
+
+                    <!-- 1: 暗夜星曜 -->
+                    <LinearLayout
+                        android:id="@+id/btnThemeDark"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:paddingVertical="6dp">
+
+                        <View
+                            android:id="@+id/indicatorThemeDark"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_theme_dark_circle" />
+
+                        <TextView
+                            android:id="@+id/labelThemeDark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="星曜黑"
+                            android:textColor="@color/apple_text_secondary"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
+
+                    <!-- 2: 冷杉林雾 -->
+                    <LinearLayout
+                        android:id="@+id/btnThemeBlue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:paddingVertical="6dp">
+
+                        <View
+                            android:id="@+id/indicatorThemeBlue"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_theme_blue_circle" />
+
+                        <TextView
+                            android:id="@+id/labelThemeBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="冷杉青"
+                            android:textColor="@color/apple_text_secondary"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
+
+                    <!-- 3: 落日暖霞 -->
+                    <LinearLayout
+                        android:id="@+id/btnThemeAmber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:paddingVertical="6dp">
+
+                        <View
+                            android:id="@+id/indicatorThemeAmber"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_theme_amber_circle" />
+
+                        <TextView
+                            android:id="@+id/labelThemeAmber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="暖霞金"
+                            android:textColor="@color/apple_text_secondary"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
+
+                    <!-- 4: 暮夜星辰 -->
+                    <LinearLayout
+                        android:id="@+id/btnThemeViolet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:paddingVertical="6dp">
+
+                        <View
+                            android:id="@+id/indicatorThemeViolet"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_theme_violet_circle" />
+
+                        <TextView
+                            android:id="@+id/labelThemeViolet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="暮夜紫"
+                            android:textColor="@color/apple_text_secondary"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 底部悬浮操作栏 (Apple 经典系统蓝胶囊大按钮) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="12dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnToggleFloating"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="@string/btn_start_service"
+            android:textColor="@color/apple_white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_ios_blue_button"
+            app:backgroundTint="@null"
+            android:elevation="4dp" />
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

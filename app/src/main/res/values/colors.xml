@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- iOS 18 官方纯黑基底与 Inset Grouped 卡片体系 -->
+    <color name="apple_black">#000000</color>
+    <color name="apple_bg_dark">#000000</color>
+    <color name="apple_card_dark">#1C1C1E</color>
+    <color name="apple_card_dark_secondary">#2C2C2E</color>
+    <color name="apple_card_border">#2C2C2E</color>
+    <color name="ios_separator">#38383A</color>
+
+    <!-- 灵动岛 iOS 最新磨砂拟态毛玻璃 (Liquid Glass / Frosted Blur) 材质 -->
+    <color name="dynamic_island_bg">#66141418</color>
+    <color name="dynamic_island_border">#59FFFFFF</color>
+    <color name="dynamic_island_pill">#2EFFFFFF</color>
+
+    <!-- 毛玻璃与高光层 -->
+    <color name="apple_glass_capsule">#F2000000</color>
+    <color name="apple_glass_stroke">#2EFFFFFF</color>
+    <color name="apple_glass_control_pill">#333336E6</color>
+    <color name="apple_glass_control_stroke">#33FFFFFF</color>
+
+    <!-- 文字与标签层次 (Apple SF Pro Typography) -->
+    <color name="apple_text_primary">#FFFFFF</color>
+    <color name="apple_text_secondary">#8E8E93</color>
+    <color name="apple_text_tertiary">#636366</color>
+
+    <!-- iOS 官方经典系统强调色 -->
+    <color name="ios_system_blue">#007AFF</color>
+    <color name="ios_system_green">#34C759</color>
+    <color name="apple_green">#34C759</color>
+    <color name="apple_blue">#007AFF</color>
+    <color name="apple_orange">#FF9500</color>
+    <color name="apple_pink">#FF2D55</color>
+    <color name="apple_yellow">#FFCC00</color>
+    <color name="apple_purple">#AF52DE</color>
+    <color name="apple_red">#FF3B30</color>
+    <color name="apple_white">#FFFFFF</color>
+
+    <!-- iOS 开关与滑块色彩 -->
+    <color name="ios_switch_track_off">#39393D</color>
+    <color name="ios_switch_track_on">#34C759</color>
+    <color name="ios_slider_track_inactive">#3A3A3C</color>
+</resources>

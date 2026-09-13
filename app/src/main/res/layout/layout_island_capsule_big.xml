@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vivo 原子岛 & 小米 HyperOS 轻触展开后的大岛卡片视图 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/islandBigRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_island_big_card"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="14dp">
+
+    <!-- 顶栏：应用名与原子钟授时状态 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_launcher"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="北京时间 · 原子钟高精对齐"
+            android:textColor="#8E8E93"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvIslandStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已校准 ±2ms"
+            android:textColor="#34C759"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- 核心时间大字 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tvIslandBigTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/tvIslandBigMs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=".000"
+            android:textColor="#34C759"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:layout_marginStart="6dp" />
+    </LinearLayout>
+
+    <!-- 底部副标题提示 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击回到时钟设置 · 毫秒级零延迟精准跳秒"
+        android:textColor="#636366"
+        android:textSize="11sp"
+        android:layout_marginTop="6dp" />
+
+</LinearLayout>

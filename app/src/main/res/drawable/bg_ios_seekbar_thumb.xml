@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 滑块白色圆形滑钮 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFFFFF" />
+    <size android:width="24dp" android:height="24dp" />
+    <stroke
+        android:width="0.5dp"
+        android:color="#26000000" />
+</shape>

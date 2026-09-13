@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vivo 原子岛 & 小米 HyperOS 状态栏挖孔原生上岛微型药丸胶囊 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/islandTinyRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_island_capsule_native"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="3dp">
+
+    <!-- 灵动岛绿色状态微光圆点 -->
+    <ImageView
+        android:id="@+id/ivIslandDot"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:src="@drawable/bg_island_dot"
+        android:layout_marginEnd="6dp" />
+
+    <!-- 高精北京时间 (HH:mm:ss) -->
+    <TextView
+        android:id="@+id/tvIslandTinyTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:includeFontPadding="false" />
+
+</LinearLayout>

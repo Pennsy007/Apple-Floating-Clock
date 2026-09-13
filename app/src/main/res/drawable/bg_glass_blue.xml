@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 苹果远峰冷雾蓝毛玻璃 (Apple Sierra Mist Blue) -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#99162432"
+                android:centerColor="#B2101C28"
+                android:endColor="#CC0A121A" />
+            <corners android:radius="44dp" />
+            <stroke
+                android:width="1dp"
+                android:color="#4D6EA0CC" />
+        </shape>
+    </item>
+    <item
+        android:top="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:bottom="14dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#26C0E0FF"
+                android:endColor="#00C0E0FF" />
+            <corners
+                android:topLeftRadius="43dp"
+                android:topRightRadius="43dp"
+                android:bottomLeftRadius="20dp"
+                android:bottomRightRadius="20dp" />
+        </shape>
+    </item>
+</layer-list>

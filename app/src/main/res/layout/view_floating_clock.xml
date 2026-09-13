@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clockRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+    <!-- 顶部极简灵动控制胶囊 (点击主时钟展开/收起) -->
+    <LinearLayout
+        android:id="@+id/layoutControls"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_dynamic_island"
+        android:paddingHorizontal="10dp"
+        android:layout_marginBottom="6dp"
+        android:visibility="gone">
+
+        <!-- 毫秒开关 -->
+        <TextView
+            android:id="@+id/btnToggleMs"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:text="毫秒"
+            android:textColor="@color/ios_system_green"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_ms_pill" />
+
+        <!-- 缩小 -->
+        <ImageView
+            android:id="@+id/btnZoomOut"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_zoom_out"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- 放大 -->
+        <ImageView
+            android:id="@+id/btnZoomIn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_zoom_in"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- 锁定/解锁 -->
+        <ImageView
+            android:id="@+id/btnLock"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_unlock"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- 关闭 -->
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_close"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+
+    <!-- 包装胶囊与拉伸角标的容器 -->
+    <FrameLayout
+        android:id="@+id/capsuleWrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <!-- 核心苹果灵动岛 Dynamic Island 胶囊 -->
+        <LinearLayout
+            android:id="@+id/clockCapsule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_dynamic_island"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="11dp">
+
+            <!-- 可选顶部日期与星期（苹果精细副标） -->
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/apple_text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.04"
+                android:text="9月13日 周日"
+                android:visibility="gone"
+                android:layout_marginBottom="2dp" />
+
+            <!-- 主时间排版行 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- 12小时制 AM/PM 标识 -->
+                <TextView
+                    android:id="@+id/tvAmPm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/apple_text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:text="AM"
+                    android:layout_marginEnd="6dp"
+                    android:visibility="gone" />
+
+                <!-- 主时分秒：苹果 SF Pro 极简纯净数字排版 -->
+                <TextView
+                    android:id="@+id/tvMainTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12:00:00"
+                    android:textColor="@color/apple_white"
+                    android:textSize="31sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"
+                    android:includeFontPadding="false" />
+
+                <!-- 毫秒药丸：嵌套次级灵动小药丸 -->
+                <LinearLayout
+                    android:id="@+id/containerMs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/bg_ms_pill"
+                    android:paddingHorizontal="7dp"
+                    android:paddingVertical="3dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvMsTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=".000"
+                        android:textColor="@color/ios_system_green"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.02"
+                        android:includeFontPadding="false" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 编辑模式拉伸角标把手 (长按出现，位于右下角) -->
+        <FrameLayout
+            android:id="@+id/layoutResizeHandle"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="-8dp"
+            android:layout_marginBottom="-8dp"
+            android:background="@drawable/bg_resize_handle"
+            android:elevation="6dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_resize_corner" />
+        </FrameLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

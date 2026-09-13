@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">悬浮时钟</string>
+    <string name="subtitle">Apple HIG · 极简灵动设计 · 原子授时</string>
+    
+    <!-- 权限提示 -->
+    <string name="permission_title">需要悬浮窗权限</string>
+    <string name="permission_desc">时钟需要“在其他应用上层显示”的权限以实现屏幕顶层悬浮。</string>
+    <string name="permission_btn">前往授权</string>
+    <string name="permission_granted">已获得悬浮窗权限</string>
+
+    <!-- 实时预览 -->
+    <string name="preview_title">灵动岛实时交互台</string>
+    <string name="preview_tip">提示：悬浮窗支持双指捏合无级缩放、双击切换毫秒、边缘弹簧磁吸</string>
+
+    <!-- 功能分组 -->
+    <string name="section_calibration">时间校准与高精授时</string>
+    <string name="section_core">显示与排版</string>
+    <string name="section_appearance">尺寸与外观</string>
+    <string name="section_theme">Apple 原厂主题</string>
+    <string name="section_advanced">交互与物理动效</string>
+
+    <!-- 授时校准条目 -->
+    <string name="opt_calibration_title">北京时间原子钟对齐</string>
+    <string name="opt_calibration_desc">消除系统晶振与运营商漂移，解决慢 1 秒问题</string>
+    <string name="btn_sync_time">一键校准</string>
+    <string name="opt_compensation">抢购前置补偿</string>
+    <string name="opt_compensation_desc">自定义毫秒微调偏移，为秒杀抢购提前锁定</string>
+
+    <!-- 设置条目 -->
+    <string name="opt_milliseconds">精确到毫秒</string>
+    <string name="opt_milliseconds_desc">显示 .SSS 毫秒，采用 60Hz/120Hz 垂直同步流转</string>
+    
+    <string name="opt_scale">自由缩放比例</string>
+    <string name="opt_opacity">窗口不透明度</string>
+    
+    <string name="opt_24hour">24 小时制</string>
+    <string name="opt_24hour_desc">关闭后显示 12 小时制（含 AM/PM 标识）</string>
+    
+    <string name="opt_show_date">显示日期与星期</string>
+    <string name="opt_show_date_desc">在时钟上方显示精巧日期标识</string>
+
+    <string name="opt_snap_edge">边缘弹簧阻尼磁吸</string>
+    <string name="opt_snap_edge_desc">拖拽松手后平滑磁吸停靠在屏幕边缘，杜绝生硬停顿</string>
+
+    <string name="opt_lock">锁定悬浮窗</string>
+    <string name="opt_lock_desc">锁定后禁止拖拽移动，防止抢购/游戏时误触</string>
+
+    <string name="opt_haptic">触觉振动反馈</string>
+    <string name="opt_haptic_desc">缩放、双击或轻触时提供苹果 Taptic Engine 拟真微震</string>
+
+    <!-- 按钮文案 -->
+    <string name="btn_start_service">开启悬浮时钟</string>
+    <string name="btn_stop_service">关闭悬浮时钟</string>
+    
+    <!-- 通知相关 -->
+    <string name="notification_channel_name">悬浮时钟前台服务</string>
+    <string name="notification_channel_desc">用于保持悬浮时钟在后台与锁屏状态下稳定运行</string>
+    <string name="notification_title">悬浮时钟正在运行</string>
+    <string name="notification_text">点击进入设置，或在悬浮窗上直接双指缩放调整</string>
+    <string name="action_stop">停止悬浮</string>
+</resources>
