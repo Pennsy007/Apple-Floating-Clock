@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">悬浮时钟</string>
-    <string name="subtitle">Apple HIG · 极简灵动设计 · 原子授时</string>
+    <string name="subtitle">极简毛玻璃设计 · 高精毫秒授时</string>
     
     <!-- 权限提示 -->
     <string name="permission_title">需要悬浮窗权限</string>
@@ -10,14 +10,14 @@
     <string name="permission_granted">已获得悬浮窗权限</string>
 
     <!-- 实时预览 -->
-    <string name="preview_title">灵动岛实时交互台</string>
+    <string name="preview_title">实时悬浮交互预览</string>
     <string name="preview_tip">提示：悬浮窗支持双指捏合无级缩放、双击切换毫秒、边缘弹簧磁吸</string>
 
     <!-- 功能分组 -->
     <string name="section_calibration">时间校准与高精授时</string>
     <string name="section_core">显示与排版</string>
     <string name="section_appearance">尺寸与外观</string>
-    <string name="section_theme">Apple 原厂主题</string>
+    <string name="section_theme">质感配色主题</string>
     <string name="section_advanced">交互与物理动效</string>
 
     <!-- 授时校准条目 -->
@@ -47,7 +47,7 @@
     <string name="opt_lock_desc">锁定后禁止拖拽移动，防止抢购/游戏时误触</string>
 
     <string name="opt_haptic">触觉振动反馈</string>
-    <string name="opt_haptic_desc">缩放、双击或轻触时提供苹果 Taptic Engine 拟真微震</string>
+    <string name="opt_haptic_desc">缩放、双击或轻触时提供清脆细腻的触觉微震</string>
 
     <!-- 按钮文案 -->
     <string name="btn_start_service">开启悬浮时钟</string>

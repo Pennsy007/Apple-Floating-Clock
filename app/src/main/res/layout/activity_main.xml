@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="高精原子授时 · 苹果毛玻璃灵动岛"
+                        android:text="高精毫秒原子授时 · 晶莹毛玻璃胶囊"
                         android:textColor="@color/apple_text_secondary"
                         android:textSize="12sp"
                         android:layout_marginTop="2dp" />
