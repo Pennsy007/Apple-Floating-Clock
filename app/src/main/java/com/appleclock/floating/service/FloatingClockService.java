@@ -61,13 +61,9 @@ public class FloatingClockService extends Service {
     private WindowManager windowManager;
     private PreferenceManager prefManager;
 
-    // 自由移动时钟
-    private FloatingClockLayout freeClockView;
-    private WindowManager.LayoutParams freeClockParams;
-
-    // 固定居中时钟
-    private FloatingClockLayout centerClockView;
-    private WindowManager.LayoutParams centerClockParams;
+    // 单一悬浮时钟实例
+    private FloatingClockLayout floatingView;
+    private WindowManager.LayoutParams windowLayoutParams;
 
     private TimeTicker timeTicker;
     private ClockConfig currentConfig = new ClockConfig();
@@ -83,7 +79,7 @@ public class FloatingClockService extends Service {
                 }
             } else if (Intent.ACTION_SCREEN_ON.equals(action) || Intent.ACTION_USER_PRESENT.equals(action)) {
                 // 亮屏唤醒：毫秒级恢复调度
-                if ((freeClockView != null || centerClockView != null) && isServiceRunning) {
+                if (floatingView != null && isServiceRunning) {
                     startTimeTicker();
                 }
             }
@@ -149,11 +145,6 @@ public class FloatingClockService extends Service {
             return START_STICKY;
         } else {
             currentConfig = prefManager.loadConfig();
-            if (!currentConfig.enableCenterClock && !currentConfig.enableFreeClock) {
-                currentConfig.enableCenterClock = true;
-                currentConfig.enableFreeClock = true;
-                prefManager.saveConfig(currentConfig);
-            }
             syncWindowsWithConfig();
             startTimeTicker();
         }
@@ -176,158 +167,90 @@ public class FloatingClockService extends Service {
         int flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 
-        // 1. 固定居中时钟管理
-        if (currentConfig.enableCenterClock) {
-            if (centerClockView == null) {
-                centerClockParams = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    layoutType,
-                    flags,
-                    PixelFormat.TRANSLUCENT
-                );
-                centerClockParams.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-                centerClockParams.x = 0;
-                centerClockParams.y = (int) (110 * density);
+        if (floatingView == null) {
+            windowLayoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                layoutType,
+                flags,
+                PixelFormat.TRANSLUCENT
+            );
 
-                centerClockView = new FloatingClockLayout(themedContext);
-                centerClockView.setFixedCenterMode(true);
-                centerClockView.attachWindow(windowManager, centerClockParams);
-                centerClockView.applyConfig(currentConfig);
-
-                centerClockView.onScaleChangeListener = scale -> {
-                    currentConfig.scale = scale;
-                    prefManager.updateScale(scale);
-                    if (freeClockView != null) freeClockView.applyConfig(currentConfig);
-                };
-
-                centerClockView.onToggleMsListener = showMs -> {
-                    currentConfig.showMilliseconds = showMs;
-                    prefManager.saveConfig(currentConfig);
-                    if (freeClockView != null) freeClockView.applyConfig(currentConfig);
-                    if (timeTicker != null) {
-                        timeTicker.updateMode(showMs, currentConfig.is24Hour, currentConfig.showDate);
-                    }
-                };
-
-                centerClockView.onLockChangeListener = locked -> {
-                    currentConfig.isLocked = locked;
-                    prefManager.saveConfig(currentConfig);
-                };
-
-                centerClockView.onCloseClickListener = () -> {
-                    currentConfig.enableCenterClock = false;
-                    prefManager.saveConfig(currentConfig);
-                    removeCenterClock();
-                    checkIfAllClosed();
-                };
-
-                try {
-                    windowManager.addView(centerClockView, centerClockParams);
-                } catch (Exception e) {
-                    android.util.Log.e("FloatingClockService", "Failed to add center clock", e);
-                }
+            if (currentConfig.isFixedCenter) {
+                windowLayoutParams.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                windowLayoutParams.x = 0;
+                windowLayoutParams.y = (int) (110 * density);
             } else {
-                centerClockView.applyConfig(currentConfig);
-                try {
-                    windowManager.updateViewLayout(centerClockView, centerClockParams);
-                } catch (Exception ignored) {}
+                windowLayoutParams.gravity = Gravity.TOP | Gravity.START;
+                windowLayoutParams.x = (currentConfig.posX != -1) ? currentConfig.posX : (int) (60 * density);
+                windowLayoutParams.y = (currentConfig.posY != -1) ? currentConfig.posY : (int) (200 * density);
             }
-        } else {
-            removeCenterClock();
-        }
 
-        // 2. 自由移动时钟管理
-        if (currentConfig.enableFreeClock) {
-            if (freeClockView == null) {
-                freeClockParams = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    layoutType,
-                    flags,
-                    PixelFormat.TRANSLUCENT
-                );
-                freeClockParams.gravity = Gravity.TOP | Gravity.START;
-                freeClockParams.x = (currentConfig.posX != -1) ? currentConfig.posX : (int) (60 * density);
-                freeClockParams.y = (currentConfig.posY != -1) ? currentConfig.posY : (int) (320 * density);
+            floatingView = new FloatingClockLayout(themedContext);
+            floatingView.setFixedCenterMode(currentConfig.isFixedCenter);
+            floatingView.attachWindow(windowManager, windowLayoutParams);
+            floatingView.applyConfig(currentConfig);
 
-                freeClockView = new FloatingClockLayout(themedContext);
-                freeClockView.setFixedCenterMode(false);
-                freeClockView.attachWindow(windowManager, freeClockParams);
-                freeClockView.applyConfig(currentConfig);
-
-                freeClockView.onPositionChangeListener = (x, y) -> {
+            floatingView.onPositionChangeListener = (x, y) -> {
+                if (!currentConfig.isFixedCenter) {
                     currentConfig.posX = x;
                     currentConfig.posY = y;
                     prefManager.updatePosition(x, y);
-                };
-
-                freeClockView.onScaleChangeListener = scale -> {
-                    currentConfig.scale = scale;
-                    prefManager.updateScale(scale);
-                    if (centerClockView != null) centerClockView.applyConfig(currentConfig);
-                };
-
-                freeClockView.onToggleMsListener = showMs -> {
-                    currentConfig.showMilliseconds = showMs;
-                    prefManager.saveConfig(currentConfig);
-                    if (centerClockView != null) centerClockView.applyConfig(currentConfig);
-                    if (timeTicker != null) {
-                        timeTicker.updateMode(showMs, currentConfig.is24Hour, currentConfig.showDate);
-                    }
-                };
-
-                freeClockView.onLockChangeListener = locked -> {
-                    currentConfig.isLocked = locked;
-                    prefManager.saveConfig(currentConfig);
-                };
-
-                freeClockView.onCloseClickListener = () -> {
-                    currentConfig.enableFreeClock = false;
-                    prefManager.saveConfig(currentConfig);
-                    removeFreeClock();
-                    checkIfAllClosed();
-                };
-
-                try {
-                    windowManager.addView(freeClockView, freeClockParams);
-                } catch (Exception e) {
-                    android.util.Log.e("FloatingClockService", "Failed to add free clock", e);
                 }
-            } else {
-                freeClockView.applyConfig(currentConfig);
-                try {
-                    windowManager.updateViewLayout(freeClockView, freeClockParams);
-                } catch (Exception ignored) {}
+            };
+
+            floatingView.onScaleChangeListener = scale -> {
+                currentConfig.scale = scale;
+                prefManager.updateScale(scale);
+            };
+
+            floatingView.onToggleMsListener = showMs -> {
+                currentConfig.showMilliseconds = showMs;
+                prefManager.saveConfig(currentConfig);
+                if (timeTicker != null) {
+                    timeTicker.updateMode(showMs, currentConfig.is24Hour, currentConfig.showDate);
+                }
+            };
+
+            floatingView.onLockChangeListener = locked -> {
+                currentConfig.isLocked = locked;
+                prefManager.saveConfig(currentConfig);
+            };
+
+            floatingView.onCloseClickListener = () -> {
+                stopSelf();
+            };
+
+            try {
+                windowManager.addView(floatingView, windowLayoutParams);
+            } catch (Exception e) {
+                android.util.Log.e("FloatingClockService", "Failed to add floating clock view", e);
             }
         } else {
-            removeFreeClock();
-        }
+            if (currentConfig.isFixedCenter) {
+                windowLayoutParams.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                windowLayoutParams.x = 0;
+                windowLayoutParams.y = (int) (110 * density);
+            } else {
+                windowLayoutParams.gravity = Gravity.TOP | Gravity.START;
+                windowLayoutParams.x = (currentConfig.posX != -1) ? currentConfig.posX : (int) (60 * density);
+                windowLayoutParams.y = (currentConfig.posY != -1) ? currentConfig.posY : (int) (200 * density);
+            }
 
-        checkIfAllClosed();
-    }
-
-    private void removeCenterClock() {
-        if (centerClockView != null) {
+            floatingView.setFixedCenterMode(currentConfig.isFixedCenter);
+            floatingView.applyConfig(currentConfig);
             try {
-                windowManager.removeView(centerClockView);
+                windowManager.updateViewLayout(floatingView, windowLayoutParams);
             } catch (Exception ignored) {}
-            centerClockView = null;
         }
     }
 
-    private void removeFreeClock() {
-        if (freeClockView != null) {
+    private void removeFloatingClock() {
+        if (floatingView != null) {
             try {
-                windowManager.removeView(freeClockView);
+                windowManager.removeView(floatingView);
             } catch (Exception ignored) {}
-            freeClockView = null;
-        }
-    }
-
-    private void checkIfAllClosed() {
-        if (centerClockView == null && freeClockView == null) {
-            stopSelf();
+            floatingView = null;
         }
     }
 
@@ -341,11 +264,8 @@ public class FloatingClockService extends Service {
         timeTicker = new TimeTicker(this, (mainTime, msTime, amPm, date) -> {
             lastMainTime = mainTime;
             lastMsTime = msTime;
-            if (centerClockView != null) {
-                centerClockView.updateTime(mainTime, msTime, amPm, date);
-            }
-            if (freeClockView != null) {
-                freeClockView.updateTime(mainTime, msTime, amPm, date);
+            if (floatingView != null) {
+                floatingView.updateTime(mainTime, msTime, amPm, date);
             }
             if (currentConfig.isIslandMode) {
                 SystemIslandManager islandMgr = SystemIslandManager.getInstance(FloatingClockService.this);
@@ -432,7 +352,6 @@ public class FloatingClockService extends Service {
             unregisterReceiver(screenStateReceiver);
         } catch (Exception ignored) {}
 
-        removeCenterClock();
-        removeFreeClock();
+        removeFloatingClock();
     }
 }

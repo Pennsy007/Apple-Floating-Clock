@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void syncConfigToViews() {
-        binding.switchCenterClock.setChecked(config.enableCenterClock);
-        binding.switchFreeClock.setChecked(config.enableFreeClock);
+        binding.switchFixedCenter.setChecked(config.isFixedCenter);
         binding.switchMilliseconds.setChecked(config.showMilliseconds);
         binding.switchIslandMode.setChecked(config.isIslandMode);
 
@@ -97,28 +96,10 @@ public class MainActivity extends AppCompatActivity {
         // 一键高精授时校准
         binding.btnSyncNetworkTime.setOnClickListener(v -> manualSyncTime());
 
-        // 固定居中悬浮时钟开关
-        binding.switchCenterClock.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            config.enableCenterClock = isChecked;
-            if (!config.enableCenterClock && !config.enableFreeClock) {
-                if (FloatingClockService.isServiceRunning) {
-                    FloatingClockService.stop(this);
-                }
-            }
+        // 固定居中/自由移动模式切换
+        binding.switchFixedCenter.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            config.isFixedCenter = isChecked;
             saveAndNotify();
-            updateServiceButtonState();
-        });
-
-        // 自由移动悬浮时钟开关
-        binding.switchFreeClock.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            config.enableFreeClock = isChecked;
-            if (!config.enableCenterClock && !config.enableFreeClock) {
-                if (FloatingClockService.isServiceRunning) {
-                    FloatingClockService.stop(this);
-                }
-            }
-            saveAndNotify();
-            updateServiceButtonState();
         });
 
         // 毫秒开关
@@ -367,13 +348,6 @@ public class MainActivity extends AppCompatActivity {
             FloatingClockService.stop(this);
             Toast.makeText(this, "悬浮时钟已关闭", Toast.LENGTH_SHORT).show();
         } else {
-            if (!config.enableCenterClock && !config.enableFreeClock) {
-                config.enableCenterClock = true;
-                config.enableFreeClock = true;
-                binding.switchCenterClock.setChecked(true);
-                binding.switchFreeClock.setChecked(true);
-                prefManager.saveConfig(config);
-            }
             FloatingClockService.start(this);
             Toast.makeText(this, "悬浮时钟已启动，可在任意界面查看", Toast.LENGTH_SHORT).show();
         }

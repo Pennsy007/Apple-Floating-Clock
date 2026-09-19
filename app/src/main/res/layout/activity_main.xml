@@ -211,7 +211,7 @@
                 android:paddingHorizontal="16dp"
                 android:layout_marginBottom="24dp">
 
-                <!-- 固定居中时钟 Switch -->
+                <!-- 固定屏幕中间模式 Switch -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="固定居中悬浮时钟"
+                            android:text="固定在屏幕正中间"
                             android:textColor="@color/apple_white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -236,60 +236,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="端正固定在屏幕上方正中，稳固防误触拖动"
+                            android:text="开启后端正固定在屏幕正上方防误触；关闭后可任意拖拽移动"
                             android:textColor="@color/apple_text_secondary"
                             android:textSize="12sp"
                             android:layout_marginTop="2dp" />
                     </LinearLayout>
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchCenterClock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:thumb="@drawable/bg_ios_switch_thumb"
-                        app:track="@drawable/bg_ios_switch_track"
-                        app:thumbTint="@null"
-                        app:trackTint="@null" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/ios_separator" />
-
-                <!-- 自由移动时钟 Switch -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="14dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="自由移动悬浮时钟"
-                            android:textColor="@color/apple_white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="单指随心拖拽到任意位置，方便比对秒杀操作"
-                            android:textColor="@color/apple_text_secondary"
-                            android:textSize="12sp"
-                            android:layout_marginTop="2dp" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchFreeClock"
+                        android:id="@+id/switchFixedCenter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:thumb="@drawable/bg_ios_switch_thumb"

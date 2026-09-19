@@ -28,8 +28,7 @@ public class PreferenceManager {
     private static final String KEY_IS_CALIBRATED = "key_is_calibrated";
     private static final String KEY_GLASS_THEME = "key_glass_theme";
     private static final String KEY_ISLAND_MODE = "key_island_mode";
-    private static final String KEY_ENABLE_CENTER_CLOCK = "key_enable_center_clock";
-    private static final String KEY_ENABLE_FREE_CLOCK = "key_enable_free_clock";
+    private static final String KEY_IS_FIXED_CENTER = "key_is_fixed_center";
 
     private final SharedPreferences prefs;
 
@@ -55,8 +54,7 @@ public class PreferenceManager {
         config.userCompensation = prefs.getLong(KEY_USER_COMPENSATION, 0L);
         config.glassTheme = prefs.getInt(KEY_GLASS_THEME, 0);
         config.isIslandMode = prefs.getBoolean(KEY_ISLAND_MODE, false);
-        config.enableCenterClock = prefs.getBoolean(KEY_ENABLE_CENTER_CLOCK, true);
-        config.enableFreeClock = prefs.getBoolean(KEY_ENABLE_FREE_CLOCK, true);
+        config.isFixedCenter = prefs.getBoolean(KEY_IS_FIXED_CENTER, false);
         return config;
     }
 
@@ -78,8 +76,7 @@ public class PreferenceManager {
             .putLong(KEY_USER_COMPENSATION, config.userCompensation)
             .putInt(KEY_GLASS_THEME, config.glassTheme)
             .putBoolean(KEY_ISLAND_MODE, config.isIslandMode)
-            .putBoolean(KEY_ENABLE_CENTER_CLOCK, config.enableCenterClock)
-            .putBoolean(KEY_ENABLE_FREE_CLOCK, config.enableFreeClock)
+            .putBoolean(KEY_IS_FIXED_CENTER, config.isFixedCenter)
             .apply();
     }
 

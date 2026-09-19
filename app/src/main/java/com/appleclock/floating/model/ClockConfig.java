@@ -48,9 +48,8 @@ public class ClockConfig {
     // 是否开启安卓顶部居中灵动岛模式
     public boolean isIslandMode = false;
 
-    // 悬浮时钟双形态支持：一个固定中间，一个自由移动
-    public boolean enableCenterClock = true; // 固定居中时钟 (默认开启)
-    public boolean enableFreeClock = true;   // 自由移动时钟 (默认开启)
+    // 位置模式：是否固定在屏幕中间 (true: 固定中间防误触; false: 自由移动拖拽)
+    public boolean isFixedCenter = false;
 
     public ClockConfig() {}
 }
