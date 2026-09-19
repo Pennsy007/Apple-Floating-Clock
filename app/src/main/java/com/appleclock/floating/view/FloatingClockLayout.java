@@ -91,6 +91,15 @@ public class FloatingClockLayout extends FrameLayout {
     private float currentRawY = 0f;
     private boolean isDragging = false;
     private boolean isScaling = false;
+    private boolean isFixedCenterMode = false; // 是否为固定居中时钟
+
+    public void setFixedCenterMode(boolean fixedCenter) {
+        this.isFixedCenterMode = fixedCenter;
+    }
+
+    public boolean isFixedCenterMode() {
+        return this.isFixedCenterMode;
+    }
 
     // ========== 长按对角拉伸缩放交互系统 ==========
     private boolean isResizeMode = false;         // 是否处于编辑/尺寸调整模式
@@ -564,7 +573,7 @@ public class FloatingClockLayout extends FrameLayout {
         // 单指手势传递（点击与双击检测）
         gestureDetector.onTouchEvent(event);
 
-        if (isScaling || windowManager == null || windowLayoutParams == null || config.isLocked) {
+        if (isScaling || windowManager == null || windowLayoutParams == null || config.isLocked || isFixedCenterMode) {
             return true;
         }
 

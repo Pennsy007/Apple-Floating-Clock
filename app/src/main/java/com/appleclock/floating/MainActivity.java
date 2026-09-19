@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void syncConfigToViews() {
+        binding.switchCenterClock.setChecked(config.enableCenterClock);
+        binding.switchFreeClock.setChecked(config.enableFreeClock);
         binding.switchMilliseconds.setChecked(config.showMilliseconds);
         binding.switchIslandMode.setChecked(config.isIslandMode);
 
@@ -95,6 +97,30 @@ public class MainActivity extends AppCompatActivity {
         // 一键高精授时校准
         binding.btnSyncNetworkTime.setOnClickListener(v -> manualSyncTime());
 
+        // 固定居中悬浮时钟开关
+        binding.switchCenterClock.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            config.enableCenterClock = isChecked;
+            if (!config.enableCenterClock && !config.enableFreeClock) {
+                if (FloatingClockService.isServiceRunning) {
+                    FloatingClockService.stop(this);
+                }
+            }
+            saveAndNotify();
+            updateServiceButtonState();
+        });
+
+        // 自由移动悬浮时钟开关
+        binding.switchFreeClock.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            config.enableFreeClock = isChecked;
+            if (!config.enableCenterClock && !config.enableFreeClock) {
+                if (FloatingClockService.isServiceRunning) {
+                    FloatingClockService.stop(this);
+                }
+            }
+            saveAndNotify();
+            updateServiceButtonState();
+        });
+
         // 毫秒开关
         binding.switchMilliseconds.setOnCheckedChangeListener((buttonView, isChecked) -> {
             config.showMilliseconds = isChecked;
@@ -105,12 +131,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 安卓灵动岛模式开关
+        // 顶部迷你贴边模式开关
         binding.switchIslandMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
             config.isIslandMode = isChecked;
             saveAndNotify();
             applyPreviewConfig();
-            Toast.makeText(this, isChecked ? "已开启系统级灵动岛（vivo 原子岛 & 小米焦点通知原生上岛）" : "已关闭系统灵动岛", Toast.LENGTH_SHORT).show();
         });
 
         // 毛玻璃 5 色系切换
@@ -342,10 +367,17 @@ public class MainActivity extends AppCompatActivity {
             FloatingClockService.stop(this);
             Toast.makeText(this, "悬浮时钟已关闭", Toast.LENGTH_SHORT).show();
         } else {
+            if (!config.enableCenterClock && !config.enableFreeClock) {
+                config.enableCenterClock = true;
+                config.enableFreeClock = true;
+                binding.switchCenterClock.setChecked(true);
+                binding.switchFreeClock.setChecked(true);
+                prefManager.saveConfig(config);
+            }
             FloatingClockService.start(this);
             Toast.makeText(this, "悬浮时钟已启动，可在任意界面查看", Toast.LENGTH_SHORT).show();
         }
-        updateServiceButtonState();
+        binding.btnToggleFloating.postDelayed(this::updateServiceButtonState, 250);
     }
 
     private void saveAndNotify() {
