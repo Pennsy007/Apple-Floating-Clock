@@ -112,7 +112,7 @@ cd Apple-Floating-Clock
 
 <div align="center">
 
-<img src="https://fastly.jsdelivr.net/gh/Pennsy007/Apple-Floating-Clock@main/docs/images/sponsor.jpg" alt="微信赞赏码" width="280" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);" />
+<img src="https://fastly.jsdelivr.net/gh/Pennsy007/Apple-Floating-Clock@main/docs/images/sponsor_clean_code.png" alt="微信赞赏码" width="260" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);" />
 
 <br/>
 
